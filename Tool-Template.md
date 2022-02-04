@@ -18,8 +18,8 @@ Website:  [Kahoot](https://kahoot.com)
 ## Additional references (bibliography, sites, etc.)
 
 + Articles:
- - [can-i-play-kahoot-with-others-remotely ](https://web.archive.org/web/20180612142456/https://kahoot.uservoice.com/knowledgebase/articles/827223-can-i-play-kahoot-with-others-remotely)
- - [The effect of points and audio on concentration, engagement, enjoyment, learning, motivation, and classroom dynamics using Kahoot!](https://scholar.google.com/scholar?hl=en&as_sdt=1%2C5&q=%22The+effect+of+points+and+audio+on+concentration%2C+engagement%2C+enjoyment%2C+learning%2C+motivation%2C+and+classroom+dynamics+using+Kahoot%21%22&btnG=)
+    - [can-i-play-kahoot-with-others-remotely ](https://web.archive.org/web/20180612142456/https://kahoot.uservoice.com/knowledgebase/articles/827223-can-i-play-kahoot-with-others-remotely)
+    - [The effect of points and audio on concentration, engagement, enjoyment, learning, motivation, and classroom dynamics using Kahoot!](https://scholar.google.com/scholar?hl=en&as_sdt=1%2C5&q=%22The+effect+of+points+and+audio+on+concentration%2C+engagement%2C+enjoyment%2C+learning%2C+motivation%2C+and+classroom+dynamics+using+Kahoot%21%22&btnG=)
 
 
 ## See also...
