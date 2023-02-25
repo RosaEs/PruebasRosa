@@ -1,35 +1,29 @@
-# [ActivePresenter](https://atomisystems.com/activepresenter/)  [<img src="images/design.png" align="bottom">](https://github.com/e-CLOSE/Toolbox/issues?q=label%3A01_TOOL+label%3Adesign) [<img src="images/video.png" align="bottom">](https://github.com/e-CLOSE/Toolbox/issues?q=label%3A01_TOOL+label%3Avideo)
+#  [Wakelet] (https://wakelet.com) [<img src="images/design.png" align="bottom">](https://github.com/e-CLOSE/Toolbox/issues?q=label%3A01_TOOL+label%3Adesign)
 
-[<img src="images/activepresenter.png" align="bottom" height="120" alt="activepresenter Logo">](https://atomisystems.com/activepresenter/)
+[<img src="images/wakelet.png" align="bottom" height="120" alt="wakelet Logo">](https://wakelet.com)
 
-Record screen, create demos, tutorials, training videos, and interactive HTML5 elearning contents.
+Save links from the web, organize them into visual collections, and share them with the world!.
 
 
 ## Detailed description & quick guide
 
-ActivePresenter is one of the most powerful and easy to use screencasting and video editors. It can be used to create software demonstrations, software simulations, and quizzes. It allows exporting to a series of images, HTML slideshows, documents (PDF, Microsoft Word, Excel), Microsoft PowerPoint presentations, videos (AVI, MP4, WMV, WebM), Flash videos and interactive simulations (HTML5, Adobe Flash).
+Wakelet is the quickest and easiest way to save and organize content!.
 
-ActivePresenter has been developed by Atomi Systems Inc. since 2007.
 
 ## Additional details
 
 - Subscription mode: Freemium. Three editions are available (Free, Standard and Pro)
 - Platform: Windows, MacOS
-- Tested by: UAH (Rosa)
-- Comments: Features: screem recording, audio and video editing, software simulation, eLearning games, Quiz Building, etc.
+- Tested by: 
+- Comments: Features: .
 
 
 ## References
 
-- ActivePresenter website: [ActivePresenter](https://atomisystems.com/activepresenter/)
-- ActivePresenter Tutorials: [Help & Tutorials](https://atomisystems.com/tutorials/)
-- ActivePresenter Manuals: [Getting Started with ActivePresenter 8](https://atomisystems.com/activepresenter/tutorials/)
-- Elearning examples: [Demos](https://atomisystems.com/activepresenter/demo/)
-
+- Wakelet website: [Wakelet] (https://wakelet.com) 
 
 ## See also...
 
-- [ActivePresenter creation issue](https://github.com/e-CLOSE/Toolbox/issues/91)
 - Links to similar tools:
   - [All tools in the 'design' category](https://github.com/e-CLOSE/Toolbox/issues?q=label%3A01_TOOL+label%3Adesign)
-  - [All tools in the 'video' category](https://github.com/e-CLOSE/Toolbox/issues?q=label%3A01_TOOL+label%3Avideo)
+  
