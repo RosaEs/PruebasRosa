@@ -1,307 +1,158 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% 
-% Generic template for the anteproyectos of TFC/TFM/TFGs
-% 
-% $Id: anteproyecto.tex,v 1.6 2018/09/11 12:23:48 macias Exp $
-% 
-% By:
-%  + Javier Macías-Guarasa. 
-%    Departamento de Electrónica
-%    Universidad de Alcalá
-%  + Roberto Barra-Chicote. 
-%    Departamento de Ingeniería Electrónica
-%    Universidad Politécnica de Madrid   
-% 
-% Based on original sources by Roberto Barra, Manuel Ocaña, Jesús Nuevo,
-% Pedro Revenga, Fernando Herránz and Noelia Hernández. Thanks a lot to
-% all of them, and to the many anonymous contributors found (thanks to
-% google) that provided help in setting all this up.
-% 
-% See also the additionalContributors.txt file to check the name of
-% additional contributors to this work.
-% 
-% If you think you can add pieces of relevant/useful examples,
-% improvements, please contact us at (macias@depeca.uah.es)
-% 
-% You can freely use this template and please contribute with
-% comments or suggestions!!!
-% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-% This is for rubber to clean additional files
-% rubber: clean anteproyecto.acn anteproyecto.acr anteproyecto.alg anteproyecto.cod anteproyecto.ist anteproyecto.out anteproyecto.sbl anteproyecto.slg anteproyecto.sym anteproyecto.lor
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% BEGIN Preamble and configuration section
-% 
-\input{../Config/preamble-anteproyecto.tex}    % DO NOT TOUCH THIS LINE. You can edit
-% the file to modify some default settings
-
-\input{../Config/myconfig.tex}    % DO NOT TOUCH THIS LINE, but EDIT THIS FILE 
-                                  % to set your specific settings (related
-                                  % to the document language, your degree,
-                                  % document details (such as title, author
-                                  % (you), your email, name of the tribunal
-                                  % members, document year, keyword and
-                                  % palabras clave) and link colors), and
-                                  % define your commonly used commands
-                                  % (some examples are provided).
-
-\input{../Config/postamble-anteproyecto.tex}   % DO NOT TOUCH THIS LINE. Yes, I know,
-                                  % "postamble" is not a valid word... :-)
-
-% path to directories containing images
-\graphicspath{{../Book/logos/}{../Book/figures/}{../Book/diagrams/}} % Edit this to your
-                                  % needs. Only logos is really required
-                                  % when you generate your own content.
-% 
-% END Preamble and configuration section
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-\title{Anteproyecto de \myWorkTypeFull}        % DO NOT TOUCH THIS LINE
-\date{\myThesisProposalDate}                         % DO NOT TOUCH THIS LINE
-\author{\myAuthorFullName}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% Let's start with the real stuff
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\begin{document}                                   % DO NOT TOUCH THIS LINE
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% BEGIN within-document configuration, frontpage and cover pages generation
-% 
-
-% Set Language dependent issues that must be set after \begin{document}
-\input{../Config/setlanguagedependentissues.tex} % DO NOT TOUCH THIS LINE
-                                                 % NOR THE FILE
-
-% 
-% END within-document configuration, frontpage and cover pages generation
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-\maketitle
-
-\begin{description}                               % DO NOT TOUCH THIS LINE
-\item[\expandafter\makefirstuc\expandafter{\wordAutorOrAutora}:] \myAuthorFullName                       % DO NOT TOUCH THIS LINE
-\item[\expandafter\makefirstuc\expandafter{\wordTutorOrTutores}:] \myAdvisors                   % DO NOT TOUCH THIS LINE
-  \item[Titulación:] \myDegreefull                % DO NOT TOUCH THIS LINE
-  \item[Título:] \myBookTitleSpanish              % DO NOT TOUCH THIS LINE
-  \ifthenelse{\equal{\myLanguage}{english}}       % DO NOT TOUCH THIS LINE
-  {                                               % DO NOT TOUCH THIS LINE
-  \item[Título en inglés:] \myBookTitleEnglish    % DO NOT TOUCH THIS LINE
-  }                                               % DO NOT TOUCH THIS LINE
-  {                                               % DO NOT TOUCH THIS LINE
-  }                                               % DO NOT TOUCH THIS LINE
-\item[Departamento:] \myDepartment                % DO NOT TOUCH THIS LINE
-\end{description}                                 % DO NOT TOUCH THIS LINE
-
-%\tableofcontents
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% BEGIN Normal sections. Edit/modify all within this section
+###########################################################################
+# 
+# Makefile to generate anteproyecto.pdf
+#
+# $Id: Makefile,v 1.4 2016/03/31 23:38:15 macias Exp $
+#
+# By:
+#  + Javier Macías-Guarasa. 
+#    Departamento de Electrónica
+#    Universidad de Alcalá
+#  + Roberto Barra-Chicote. 
+#    Departamento de Ingeniería Electrónica
+#    Universidad Politécnica de Madrid   
+# 
+# Based on original sources by Roberto Barra, Manuel Ocaña, Jesús Nuevo,
+# Pedro Revenga, Fernando Herránz and Noelia Hernández. Thanks a lot to
+# all of them, and to the many anonymous contributors found (thanks to
+# google) that provided help in setting all this up.
+#
+# See also the additionalContributors.txt file to check the name of
+# additional contributors to this work.
+#
+# If you think you can add pieces of relevant/useful examples,
+# improvements, please contact us at (macias@depeca.uah.es)
+#
+# Copyleft 2013
+#
+###########################################################################
+
+ROOT_FILENAME=anteproyecto
+TEX_FILE = $(ROOT_FILENAME).tex
+FLATTEN_TEX_FILE = $(ROOT_FILENAME)-flatten.tex
+SNAPSHOT_FLATTEN_TEX_FILE = $(ROOT_FILENAME)-flatten-snapshot.tex
+DIFF_FLATTEN_ROOT_FILENAME = $(ROOT_FILENAME)-flatten-diff
+DIFF_FLATTEN_TEX_FILE = $(DIFF_FLATTEN_ROOT_FILENAME).tex
+LATEXMK_TOOL=latexmk
+EPSPDF_TOOL=epspdf
+PDF_TOOL=pdflatex
+# PDF_TOOL=xelatex
+# PDF_TOOL=lualatex
+
+ifeq ($(PDF_TOOL),pdflatex)
+	PDF_PREFIX := $(shell echo $(PDF_TOOL) | sed -e "s/latex//")
+else
+	PDF_PREFIX := pdf$(shell echo $(PDF_TOOL) | sed -e "s/latex//" )
+endif
+
+RM=rm -f
+
+BIBLIO_PACKAGE=$(shell cat ../Config/preamble-anteproyecto.tex | grep -e bibliosystem | grep -v ifthenelse | grep newcommand | grep -v "^\%" | cut -d'{' -f3 | cut -d'}' -f1 | tr -d " ")
+ifeq ($(BIBLIO_PACKAGE),bibtex)
+	BIBLIO_TOOL := bibtex
+else
+	BIBLIO_TOOL := biber
+endif
+
+###########################################################################
+# Support to automagically compile dia+svg files. Adapt to your own needs
+DIA_SOURCES=$(wildcard ../Book/diagrams/*.dia)
+SVG_SOURCES=$(wildcard ../Book/diagrams/*.svg)
+EPS_SOURCES=$(wildcard ../eps/*.eps) $(wildcard ../ALLcurvesROC-AV16.3/*.eps) $(wildcard ../ALLcurvesROC-HIFI-MM1/*.eps)
+
+PDFS_FROM_DIA=$(patsubst %.dia,%.pdf,$(DIA_SOURCES)) 
+PDFS_FROM_SVG=$(patsubst %.svg,%.pdf,$(SVG_SOURCES)) 
+PDFS_FROM_EPS=$(patsubst %.eps,%.pdf,$(EPS_SOURCES)) 
+
+DUMMY_TARGETS=pdf_dia_done pdf_svg_done pdf_eps_done
+
+# To use synctex 
+FLAGS_SYNCTEX_PDFLATEX=-synctex=1
+
+all: $(DUMMY_TARGETS) anteproyecto
+
+anteproyecto: $(TEX_FILENAME)
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(TEX_FILE)
+	$(BIBLIO_TOOL) $(ROOT_FILENAME)	
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(TEX_FILE)
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(TEX_FILE)
+
+anteproyecto_latexmk: $(TEX_FILENAME)
+	# Note: pdflatex/lualatex, etc option when provided with the COMMAND
+	# argument only sets the command for invoking pdflatex; it does not turn on
+	# the use of pdflatex. That is done by other options or in an
+	# initialization file. (Or using -pdf, -xepdf, -luapdf) as specified in $(PDF_TOOL)
+	$(LATEXMK_TOOL) -$(PDF_PREFIX) -pdflatex="pdflatex $(FLAGS_SYNCTEX_PDFLATEX) -interactive=nonstopmode" -xelatex="xelatex $(FLAGS_SYNCTEX_PDFLATEX) -interactive=nonstopmode" -lualatex="lualatex $(FLAGS_SYNCTEX_PDFLATEX) -interactive=nonstopmode" -use-make $(TEX_FILE)
+
+snapshot:
+	latexpand $(TEX_FILE) > $(SNAPSHOT_FLATTEN_TEX_FILE)
+
+flatten: 
+	latexpand $(TEX_FILE) > $(FLATTEN_TEX_FILE)
+
+latexdiff: flatten
+	# latexdiff --encoding=utf8 --config="PICTUREENV=(?:picture|tikzpicture|DIFnomarkup)[\w\d*@]*" $((SNAPSHOT_FLATTEN_TEX_FILE) $(FLATTEN_TEX_FILE)
+	latexdiff --encoding=utf8 --config="PICTUREENV=(?:picture|tikzpicture|DIFnomarkup)[\w\d*@]*" $(SNAPSHOT_FLATTEN_TEX_FILE) $(FLATTEN_TEX_FILE) > $(DIFF_FLATTEN_TEX_FILE)
+	# latexdiff-git --force -r $(FLATTEN_TEX_FILE)
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(DIFF_FLATTEN_ROOT_FILENAME)
+	$(BIBLIO_TOOL)  $(DIFF_FLATTEN_ROOT_FILENAME)
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(DIFF_FLATTEN_ROOT_FILENAME)
+	$(PDF_TOOL) $(FLAGS_SYNCTEX_PDFLATEX) $(DIFF_FLATTEN_ROOT_FILENAME)
+
 
-\section{Introducción}
-\label{sec:introduccion}
+pdf_dia_done: $(PDFS_FROM_DIA)
+	echo "Generating pdfs from DIA: [$(PDFS_FROM_DIA)]..."
+	touch $@
+
+pdf_svg_done: $(PDFS_FROM_SVG)
+	echo "Generating pdfs from SVG: [$(PDFS_FROM_SVG)]..."
+	touch $@
+
+pdf_eps_done: $(PDFS_FROM_EPS)
+	echo "Generating pdfs from EPS: [$(PDFS_FROM_EPS)]..."
+	touch $@
+
+%.pdf: %.dia
+	echo "Converting $^ to $@..."
+	dia -e $@.eps $^
+	$(EPSPDF_TOOL) $@.eps $@
+	$(RM) $@.eps
+
+%.pdf: %.svg
+	echo "Converting $^ to $@..."
+	inkscape $^ --export-pdf=$@ -D
+
+%.pdf: %.eps
+	echo "Converting $^ to $@..."
+	$(EPSPDF_TOOL) $^ $@ 
+#	-epstopdf -outfile=$@ $^ 
+
+tar:
+	gunzip $(ROOT_FILENAME)-latex.tar.gz
+	tar -uvf $(ROOT_FILENAME)-latex.tar `find . -name Makefile -o -name README -o -name "*.txt" -o -name "*.ppt*" -o -name "*.c" -o -name "*.sty" -o -name "*.tex" -o -name "*.bib" -o -name "*.pdf" -o -name "*.png" -o -name "*.PNG" -o -name "*.jpg" -o -name "*.JPG" -o -name "*.dia" -o -name "*.eps" -o -name "*.EPS"` 
+	gzip $(ROOT_FILENAME)-latex.tar
+	zip -u $(ROOT_FILENAME)-latex.zip `find . -name Makefile -o -name README -o -name "*.txt" -o -name "*.ppt*" -o -name "*.c" -o -name "*.sty" -o -name "*.tex" -o -name "*.bib" -o -name "*.pdf" -o -name "*.png" -o -name "*.PNG" -o -name "*.jpg" -o -name "*.JPG" -o -name "*.dia" -o -name "*.eps" -o -name "*.EPS"` 
+
+clean:
+#	$(RM) $(PDFS_FROM_DIA)
+#	$(RM) $(PDFS_FROM_SVG)
+	$(RM) $(DUMMY_TARGETS)
+	$(RM) $(ROOT_FILENAME).acn $(ROOT_FILENAME).sbl $(ROOT_FILENAME).out $(ROOT_FILENAME).log $(ROOT_FILENAME).bcf $(ROOT_FILENAME).aux $(ROOT_FILENAME).bbl  $(ROOT_FILENAME).blg  $(ROOT_FILENAME).ist $(ROOT_FILENAME).glsdefs $(ROOT_FILENAME).toc $(ROOT_FILENAME).run.xml $(ROOT_FILENAME).lot $(ROOT_FILENAME).lof $(ROOT_FILENAME).loa $(ROOT_FILENAME).cod $(ROOT_FILENAME).alg $(ROOT_FILENAME).acr $(ROOT_FILENAME).sym $(ROOT_FILENAME).slg
+
+
+clean_latexmk:
+	$(LATEXMK_TOOL) -C $(TEX_FILE)
+#	$(RM) $(PDFS_FROM_DIA)
+#	$(RM) $(PDFS_FROM_SVG)
+	-$(RM) $(ROOT_FILENAME).blg
+	-$(RM) $(ROOT_FILENAME).bbl
+	-$(RM) $(ROOT_FILENAME).out
+	-$(RM) $(ROOT_FILENAME).aux
+	-$(RM) $(ROOT_FILENAME).pdf
+	-$(RM) $(ROOT_FILENAME).log
+	-$(RM) $(ROOT_FILENAME).fdb_latexmk
+	$(RM) $(DUMMY_TARGETS)
+
+.PHONY:	all pdf clean tar $(DUMMY_TARGETS)
 
-\textit{En este apartado se describirá el contexto en el que se desenvolverá el
-  TFG y sus antecedentes si existen. Recuerda que en el anteproyecto
-  también se pueden poner referencias bibliográficas como \cite{moore2002}}.
 
-
-\section{Objetivos}
-\label{sec:objetivos-y-campo}
-
-\textit{En este apartado se delimitan y explican con claridad los objetivos
-  generales a conseguir con el TFG y la aplicación del mismo, así como los
-  objetivos específicos en su caso. Algo del tipo:}
-
-El objetivo fundamental de este proyecto es el diseño, implementación y
-evaluación de \ldots
-
-Los objetivos específicos de este proyecto son los siguientes:
-
-\begin{itemize}
-\item Realizar un  \ldots
-\item Diseñar, implementar y evaluar  \ldots, siguiendo la arquitectura
-  mostrada en la figura \ref{fig_arquitectura}, y que tendrá las
-  siguientes características:
-
-  \begin{enumerate}
-  \item Característica 1 \ldots
-  \item Característica 2 \ldots
-  \item  \ldots
-  \item Característica n \ldots
-  \end{enumerate}
-
-\item Analizar  \ldots
-
-\item Documentar  \ldots
-
-\end{itemize}
-
-\textit{Igualmente se deberá indicar si el trabajo está sometido a confidencialidad.}
-
-\section{Descripción del trabajo}
-\label{sec:descr-del-trab}
-
-\textit{Aquí se explicará en detalle qué se va a hacer, cómo y por qué. Sería interesante incluir un esquema/diagrama de bloques, si se puede (como el mostrado en la figura~\ref{fig:arquitectura}).}
-
-
-\begin{figure}[tphb]
-  \centering
-  \includegraphics[width=3in]{Diagrama2.pdf}
-  \caption{Arquitectura del sistema completo.}
-  \label{fig:arquitectura}
-\end{figure}
-
-
-\section{Metodología y plan de trabajo}
-\label{sec:metodologia-y-plan}
-
-\textit{Aquí se incluirá una descripción (puede ser incluso una enumeración)
-  clara de las etapas que se van a seguir, y si es posible se deberá
-  incluir un diagrama de Gantt. Por ejemplo algo del estilo a:}
-
-Estas son las fases de desarrollo que se van a seguir para la
-consecución de los objetivos del proyecto descritos en la sección~\ref{sec:objetivos-y-campo}:
-
-\begin{enumerate}
-  
-\item Formación inicial (1 mes)
-  
-  \begin{itemize}
-  \item Formación en \ldots
-  \item Consulta de la API \ldots
-  \item Consulta bibliográfica \ldots
-  \item Profundización en herramientas de soporte \ldots
-  \item  \ldots
-  \end{itemize}
-
-\item Diseño del entorno (0,5 meses)
-
-\item Diseño, implementación y evaluación del módulo 1 (2 meses)
-  \begin{itemize}
-  \item Definición del  \ldots
-  \item Implementación del  \ldots
-  \item Evaluación del  \ldots
-  \end{itemize}
-  
-\item Diseño, implementación y evaluación del módulo 2 (1 mes):
-  \begin{itemize}
-  \item Definición de  \ldots
-  \item Definición de  \ldots
-  \item Implementación y evaluación  \ldots
-  \end{itemize}
-
-\item Integración y pruebas (1 mes)
-
-\item Documentación (a lo largo de todo el proyecto)
-
-\end{enumerate}
-
-El diagrama de Gantt asociado a esa definición es el mostrado en la figura~\ref{fig:diagrama-gantt} (\textit{para lo que he usado la funcionalidad del paquete} \texttt{pgfgantt} \textit{pero que puedes hacer con cualquier otra herramienta}).
-
-\begin{figure}[H]
-  \centering
-
-  \begin{ganttchart}[
-    title height=1,
-    x unit=0.05cm, % Adjusts the width of the chart
-    y unit title=0.6cm, % Adjusts the height of titles
-    y unit chart=0.5cm, % Adjusts the height of tasks
-    group height=0.5,
-    bar height=0.5,
-    vgrid={*{6}{draw=none}, *1{draw, dotted}}, % Vertical lines only at month start
-    hgrid,
-    time slot format=isodate,
-    group label font=\bfseries\footnotesize,
-    bar label font=\footnotesize,
-    title label font=\footnotesize,
-    group/.append style={fill=gray!75}, % Change group bar fill to gray
-    group peaks height=0.3, % Increase the height of the vertical marks
-    group peaks width=2, % Increase the width of the vertical marks
-    group peaks tip position=0, % Center the vertical marks
-    ]{2025-01-23}{2025-06-30} % Adjust dates as needed
-
-    % Define months
-    \gantttitlecalendar{year, month} \\
-
-    % Tasks
-    \ganttbar{Formación inicial}{2025-02-01}{2025-02-28} \\
-    \ganttbar{Diseño del entorno}{2025-02-28}{2025-03-15} \\
-    \ganttgroup{Módulo 1}{2025-03-01}{2025-05-01} \\
-    \ganttbar{Definición}{2025-03-01}{2025-03-07} \\
-    \ganttbar{Implementación}{2025-03-07}{2025-04-20} \\
-    \ganttbar{Evaluación}{2025-03-20}{2025-05-01} \\
-    \ganttgroup{Módulo 2}{2025-04-01}{2025-06-01} \\
-    \ganttbar{Definición}{2025-04-01}{2025-04-07} \\
-    \ganttbar{Implementación}{2025-04-07}{2025-05-20} \\
-    \ganttbar{Evaluación}{2025-04-20}{2025-06-01} \\
-    \ganttbar{Integración y pruebas}{2025-04-15}{2025-06-15} \\
-    \ganttbar{Documentación}{2025-02-01}{2025-06-15}
-  \end{ganttchart}
-  \caption{Diagrama de Gantt de la planificación del trabajo.}
-  \label{fig:diagrama-gantt}
-
-\end{figure}
-
-\section{Medios}
-\label{sec:medios}
-
-\textit{Aquí se describen de los medios necesarios para realizar el TFG. Por
-  ejemplo:}
-
-Las herramientas que van a ser necesarias para desarrollar este proyecto
-son las siguientes:
-
-\begin{itemize}
-\item PC compatible
-\item Sensor  \ldots
-\item Sistema operativo GNU/Linux~\cite{gnulinux}
-\item Entorno de desarrollo Emacs/Vim~\cite{emacs}
-\item Procesador de textos \LaTeX~\cite{lamport94}
-\item Control de versiones CVS~\cite{cvs}
-\item Compilador C/C++ gcc~\cite{gcc}
-\item Gestor de compilaciones make~\cite{make}
-\item Robot con movilidad.
-\item  \ldots
-\end{itemize}
-
-
-
-Otros recursos necesarios para la elaboración del proyecto son:
-
-\begin{itemize}
-\item Herramientas  \ldots
-\item Sistema de desarrollo  \ldots
-\item  \ldots
-\end{itemize}
-
-
-
-
-% 
-% END Normal sections. Edit/modify all within this section
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% Bibliography
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-\input{../Book/biblio/bibliography.tex}               % EDIT this file if required
-
-
-
-\end{document}
